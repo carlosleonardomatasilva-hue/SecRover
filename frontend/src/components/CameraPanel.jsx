@@ -1,0 +1,14 @@
+import React, { useState } from 'react'
+const PTZ = [['↑','UP'],['←','LEFT'],['→','RIGHT'],['↓','DOWN']]
+export default function CameraPanel({ demo, grabando = false, ptzEnlace, ptzInfo, moverPTZ, detenerPTZ }) {
+  const [zoom, setZoom] = useState(1)
+  const ready = !demo && ptzEnlace === 'conectado' && ptzInfo.ticket && ptzInfo.online
+  const imageUrl = ready ? `/api/video.mjpeg?ticket=${encodeURIComponent(ptzInfo.ticket)}` : null
+  return <section className="panel camera-panel"><div className="panel-head"><div><span className="section-kicker">TRANSMISIÓN / CAM-01</span><h2>Cámara principal <span className="dim">/ PTZ</span></h2></div><span className={`pill ${ready ? 'pill-green' : demo ? 'pill-amber' : 'pill-off'}`}><span className="tiny-dot" />{ready ? 'VIDEO DISPONIBLE' : demo ? 'SIMULACIÓN VISUAL' : 'VIDEO NO DISPONIBLE'}</span></div>
+    <div className="camera-stage">
+      {ready ? <img src={imageUrl} alt="Video MJPEG de cámara SecRover" style={{ transform:`scale(${zoom})` }} className="stream-image" onError={e=>{e.currentTarget.style.visibility='hidden'}}/> : <div className="camera-placeholder"><div className="camera-grid"/><div className="camera-vignette"/><div className="scanline"/><div className="camera-horizon"><div className="wire-tower"/><div className="warehouse"><div className="warehouse-top"/><div className="door"/></div><div className="warehouse wh2"><div className="warehouse-top"/><div className="door"/></div></div><div className="camera-reticle"><span>+</span></div><span className="camera-caption">{demo ? 'VISTA CONCEPTUAL DEL PATIO INDUSTRIAL' : 'ESPERANDO SEÑAL DE CÁMARA'}</span></div>}
+      <span className="camera-label">SECROVER / CAM 01</span><span className={`camera-live ${grabando && !demo ? "recording-tag" : ""}`}>{grabando && !demo ? "● REC" : ready ? "● LIVE" : "○ OFFLINE"}</span><span className="camera-corner c1"/><span className="camera-corner c2"/><span className="camera-corner c3"/><span className="camera-corner c4"/>
+    </div>
+    <div className="camera-controls"><div><span className="muted small">CONTROL DE ORIENTACIÓN</span><div className="ptz-pad">{PTZ.map(([icon, action]) => <button key={action} className={action === 'PTZ_HOME' ? 'ptz-home' : ''} disabled={demo || ptzEnlace !== 'conectado'} onPointerDown={e => {e.currentTarget.setPointerCapture(e.pointerId); moverPTZ(action)}} onPointerUp={detenerPTZ} onPointerCancel={detenerPTZ} onLostPointerCapture={detenerPTZ} onContextMenu={e=>e.preventDefault()} title={action}>{icon}</button>)}</div></div><div className="camera-zoom"><label>ZOOM DIGITAL <span>{Math.round(zoom * 100)}%</span></label><input type="range" min="1" max="2.5" step="0.1" value={zoom} onChange={e=>setZoom(Number(e.target.value))}/><button className="btn btn-outline btn-compact" onClick={()=>setZoom(1)}>Restablecer zoom</button><div className="small muted">PTZ requiere cámara y autenticación. El zoom no modifica la cámara física.</div></div></div>
+  </section>
+}

@@ -1,0 +1,18 @@
+SECROVER REACT / FASE 5 RECONSTRUIDA
+
+DESARROLLO:
+  cd frontend
+  npm install
+  npm run dev
+  Abrir: http://127.0.0.1:5173
+
+COMPILACIÓN:
+  npm run build
+  Salida: frontend/dist/
+
+INTEGRAR FASTAPI:
+  Inicia tu servidor Python en 127.0.0.1:8000
+  Desactiva el modo demo en React
+  Consulta README.md
+
+IMPORTANTE: paquete de frontend reconstruido; no incluye backend Python original.

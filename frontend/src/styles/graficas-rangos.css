@@ -1,0 +1,13 @@
+/* SecRover: escalas visibles sin alterar la paleta glassmorphism existente. */
+.gas-panel-head{gap:12px;flex-wrap:wrap}
+.gas-panel-tools{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.gas-chart-select{display:flex;align-items:center;gap:6px;font-size:.73rem;color:#91a9bc}
+.gas-chart-select select{background:#101e2e;color:#d8edf7;border:1px solid #38536a;border-radius:6px;padding:6px 8px;max-width:152px;font:inherit}
+.gas-chart-select select:focus-visible{outline:2px solid #45d7eb;outline-offset:2px}
+.gas-chart-wrap{min-width:0}
+.sparkline-rangos{display:block;width:100%;margin:5px 0 0;overflow:visible}
+.gas-chart-caption{display:flex;gap:5px;justify-content:space-between;flex-wrap:wrap;color:#788fa5;font-size:.66rem;padding:0 0 5px;line-height:1.4}
+.gas-chart-outlier,.gas-range-warning{color:#ffbd84}
+.gas-range-warning{font-size:.68rem;line-height:1.45;background:#a669241c;padding:7px 8px;border-radius:6px;margin:4px 0 6px}
+.gas-ppm-grid .gas-card{min-width:0}
+@media(max-width:620px){.gas-panel-tools{width:100%}.gas-chart-select select{max-width:135px}}
